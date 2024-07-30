@@ -1,5 +1,6 @@
 from tempfile import NamedTemporaryFile
 import json
+import os
 
 from csvlogcleaner import clean_csv
 
@@ -44,18 +45,23 @@ def test_clean_csv_schema_file():
 ,weasel,,V1\n"""
 
     # Act
-    with NamedTemporaryFile() as temp_file:
-        result_raw = clean_csv(input_csv_path, temp_file.name, input_schema_path, 1000)
+    with NamedTemporaryFile(delete=False) as temp_file:
+        temp_file_path = temp_file.name
+
+    try:
+        result_raw = clean_csv(input_csv_path, temp_file_path, input_schema_path, 1000)
         print(result_raw)
         result = json.loads(result_raw)
         print(result)
-        with open(temp_file.name) as f:
+        with open(temp_file_path) as f:
             cleaned_csv_output = f.read()
             print(cleaned_csv_output)
 
             # Assert
             assert result == expected_result
             assert cleaned_csv_output == expected_csv_output
+    finally:
+        os.remove(temp_file_path)
 
 
 def test_clean_csv_schema_string():
@@ -112,15 +118,20 @@ def test_clean_csv_schema_string():
 ,weasel,,V1\n"""
 
     # Act
-    with NamedTemporaryFile() as temp_file:
-        result_raw = clean_csv(input_csv_path, temp_file.name, json.dumps(input_schema))
+    with NamedTemporaryFile(delete=False) as temp_file:
+        temp_file_path = temp_file.name
+
+    try:
+        result_raw = clean_csv(input_csv_path, temp_file_path, json.dumps(input_schema))
         print(result_raw)
         result = json.loads(result_raw)
         print(result)
-        with open(temp_file.name) as f:
+        with open(temp_file_path) as f:
             cleaned_csv_output = f.read()
             print(cleaned_csv_output)
 
             # Assert
             assert result == expected_result
             assert cleaned_csv_output == expected_csv_output
+    finally:
+        os.remove(temp_file_path)

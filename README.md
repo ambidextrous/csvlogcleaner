@@ -139,15 +139,13 @@ Column attribute explanation:
 
 ## Building from source
 
-Requires a working Rust [Cargo](https://doc.rust-lang.org/cargo/) installation, a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) running at least Python version 3.8 and a [maturin](https://github.com/PyO3/maturin) installation.
+Requires a working Rust [Cargo](https://doc.rust-lang.org/cargo/) installation, a [Python virtual environment](https://docs.python.org/3/tutorial/venv.html) running at least Python version 3.8 and the python packages [`maturin`](https://github.com/PyO3/maturin) and [`pytest`](https://docs.pytest.org/en/stable/) installed.
 ```bash
 pip install maturin
+pip install pytest
 git clone https://github.com/ambidextrous/csvlogcleaner.git
 cd csvlogcleaner
-maturin develop
+maturin develop # To build a version of csvlogcleaner available within your virtual env
+pytest # To test that the library is working
 ```
-You should then be able to run the above example code starting:
-```bash
-python # To start the Python shell 
->>> from csvlogcleaner import clean_csv # to import csvlogcleaner within the shell
-```
+
