@@ -4,7 +4,7 @@
 
 `csvlogcleaner` - Cleans [Comma Separated Value (CSV)](https://en.wikipedia.org/wiki/Comma-separated_values) files to conform to a given type schema by parallelized streaming through configurably-sized memory buffers, with column-wise logging of any resulting data loss. Prepares unvalidated data in CSV tables for use in databases or data pipelines. Processes arbitrarily large files in memory-constrained environments.
 
-The Python `csvlogcleaner` library is a Python wrapper around the [CSV Log Cleaner](https://github.com/ambidextrous/csv_log_cleaner) library implemented in Rust, which is also available as a Rust crate or a stand-alone Command Line Interface (CLI) via [Cargo](https://crates.io/crates/csv_log_cleaner).
+The Python `csvlogcleaner` library is a Python wrapper around the [CSV Log Cleaner](https://github.com/ambidextrous/csv_log_cleaner) library implemented in Rust, which is also available as a Rust crate or a stand-alone Command Line Interface (CLI) via [Cargo](https://crates.io/crates/csv_log_cleaner). It has no external dependencies and is based on a single, compiled Rust binary.
 
 ## Example useage
 
@@ -23,8 +23,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> from tempfile import NamedTemporaryFile
 >>> import json
 >>> schema = {'columns': [{'name': 'INT_COLUMN', 'column_type': 'Int'}, {'name': 'STRING_COLUMN', 'column_type': 'String', 'nullable': False}, {'name': 'DATE_COLUMN', 'column_type': 'Date', 'format': '%Y-%m-%d'}, {'name': 'ENUM_COLUMN', 'column_type': 'Enum', 'nullable': False, 'legal_vals': ['V1', 'V2', 'V3'], 'illegal_val_replacement': 'V1'}]}
->>> input = '''INT_COLUMN,STRING_COLUMN,DATE_COLUMN,ENUM_COLUMN\n4,dog,2020-12-31,V1\nnot_an_int,cat,not_a_date,V2\n
-an_int,weasel,a_date,V5\n'''
+>>> input = '''INT_COLUMN,STRING_COLUMN,DATE_COLUMN,ENUM_COLUMN\n4,dog,2020-12-31,V1\nnot_an_int,cat,not_a_date,V2\nan_int,weasel,a_date,V5\n'''
 >>> print(input)
 INT_COLUMN,STRING_COLUMN,DATE_COLUMN,ENUM_COLUMN
 4,dog,2020-12-31,V1
