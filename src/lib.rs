@@ -13,7 +13,6 @@ fn clean_csv(
     schema_string: String,
     buffer_size: usize,
 ) -> PyResult<String> {
-    println!("Entering clean_csv");
     let schema_map: HashMap<String, Column> = if std::path::Path::new(&schema_string)
         .extension()
         .map_or(false, |ext| ext.eq_ignore_ascii_case("json"))
@@ -21,11 +20,8 @@ fn clean_csv(
         let schema_file_contents = fs::read_to_string(schema_string)?;
         get_schema_from_json_str(&schema_file_contents)?
     } else {
-        println!("else get_schema_from_json_str");
-        println!("{schema_string}");
         get_schema_from_json_str(&schema_string)?
     };
-    println!("Generated schema map");
 
     let mut csv_rdr = Reader::from_path(input_csv_path)
         .map_err(|e| pyo3::exceptions::PyIOError::new_err(e.to_string()))?;
@@ -49,4 +45,3 @@ fn csvlogcleaner(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(clean_csv, m)?)?;
     Ok(())
 }
-

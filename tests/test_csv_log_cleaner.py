@@ -38,6 +38,10 @@ def test_clean_csv_schema_file():
             },
         },
     }
+    expected_csv_output = """INT_COLUMN,STRING_COLUMN,DATE_COLUMN,ENUM_COLUMN
+4,dog,2020-12-31,V1
+,cat,,V2
+,weasel,,V1\n"""
 
     # Act
     with NamedTemporaryFile() as temp_file:
@@ -45,9 +49,13 @@ def test_clean_csv_schema_file():
         print(result_raw)
         result = json.loads(result_raw)
         print(result)
+        with open(temp_file.name) as f:
+            cleaned_csv_output = f.read()
+            print(cleaned_csv_output)
 
-        # Assert
-        assert result == expected_result
+            # Assert
+            assert result == expected_result
+            assert cleaned_csv_output == expected_csv_output
 
 
 def test_clean_csv_schema_string():
@@ -98,13 +106,21 @@ def test_clean_csv_schema_string():
             },
         },
     }
+    expected_csv_output = """INT_COLUMN,STRING_COLUMN,DATE_COLUMN,ENUM_COLUMN
+4,dog,2020-12-31,V1
+,cat,,V2
+,weasel,,V1\n"""
 
     # Act
     with NamedTemporaryFile() as temp_file:
-        result_raw = clean_csv(input_csv_path, temp_file.name, json.dumps(input_schema), 1000)
+        result_raw = clean_csv(input_csv_path, temp_file.name, json.dumps(input_schema))
         print(result_raw)
         result = json.loads(result_raw)
         print(result)
+        with open(temp_file.name) as f:
+            cleaned_csv_output = f.read()
+            print(cleaned_csv_output)
 
-        # Assert
-        assert result == expected_result
+            # Assert
+            assert result == expected_result
+            assert cleaned_csv_output == expected_csv_output
