@@ -6,18 +6,16 @@
 
 The Python `csvlogcleaner` library is a Python wrapper around the [CSV Log Cleaner](https://github.com/ambidextrous/csv_log_cleaner) library implemented in Rust, which is also available as a Rust crate or a stand-alone Command Line Interface (CLI) via [Cargo](https://crates.io/crates/csv_log_cleaner). It has no external dependencies and is based on a single, compiled Rust binary.
 
-## Example useage
+## Example
 
 Installation:
 ```bash
 pip install csvlogcleaner
 ```
 
-Useage:
+Use:
 ```python
 (rust) aidanbutler@ADH120-MBP csvlogcleaner % python
-Python 3.12.0 (main, Feb 28 2024, 11:31:25) [Clang 14.0.3 (clang-1403.0.22.14.1)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
 >>> from csvlogcleaner import clean_csv
 >>> from io import StringIO
 >>> from tempfile import NamedTemporaryFile
