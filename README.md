@@ -15,7 +15,7 @@ pip install csvlogcleaner
 
 Use:
 ```python
-(rust) aidanbutler@ADH120-MBP csvlogcleaner % python
+% python
 >>> from csvlogcleaner import clean_csv
 >>> from io import StringIO
 >>> from tempfile import NamedTemporaryFile
